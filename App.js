@@ -1,28 +1,41 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList,ScrollView } from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
+  const [people, setPeople] = useState([
+    { name: 'shaun', id: '1' },
+    { name: 'yoshi', id: '2' },
+    { name: 'mario', id: '3' },
+    { name: 'luigi', id: '4' },
+    { name: 'peach', id: '5' },
+    { name: 'toad', id: '6' },
+    { name: 'bowser', id: '7' },
+  ]);
 
   return (
     <View style={styles.container}>
+      <FlatList 
+        numColumns={2}
+        keyExtractor={(item) => item.id} 
+        data={people} 
+        renderItem={({ item }) => ( 
+          <Text style={styles.item}>{item.name}</Text>
+        )}
+      />
 
-      <Text>Enter name:</Text>
-      <TextInput
-        multiline
-        placeholder='e.g. John Doe' 
-        style={styles.input}
-        onChangeText={(value) => setName(value)} />
 
-      <Text>Enter age:</Text>
-      <TextInput
-        keyboardType='numeric'
-        placeholder='e.g. 99' 
-        style={styles.input}
-        onChangeText={(value) => setAge(value)} />
+      {/* even map can be used to render list */}
+      
+      {/* <ScrollView>
+      {
+        people.map((ele)=>{
+          return <View key={ele.key}>
+            <Text style={styles.item1}>{ele.name}</Text>
+          </View>
+        })
+      }
+      </ScrollView> */}
 
-      <Text style={styles.result}>name: {name}, age: {age}</Text>
     </View>
   );
 }
@@ -30,17 +43,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40,
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
+  item: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'pink',
+    fontSize: 24,
+  },
+  item1 :{
+    marginTop: 4,
+    padding: 10,
+    backgroundColor: 'pink',
+    fontSize: 24,
   }
 });
-
-//key board type is a prop
