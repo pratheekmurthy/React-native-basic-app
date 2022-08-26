@@ -1,22 +1,29 @@
-import React,{useState} from 'react'
-import { StyleSheet, Text, View,Button } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 export default function App() {
-  const [person,setPerson]= useState({ name:"pratheek",age :"25"})
-
-  const updateHandler =()=>{
-    setPerson({name :"pratham",age : "25"})
-  }
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
 
   return (
     <View style={styles.container}>
-      <Text>My name is {person.name}</Text>
-      <Text>And My Age is {person.age}</Text>
-      <View >
-        <Button title="Update" onPress={updateHandler}/>
+
+      <Text>Enter name:</Text>
+      <TextInput
+        multiline
+        placeholder='e.g. John Doe' 
+        style={styles.input}
+        onChangeText={(value) => setName(value)} />
+
+      <Text>Enter age:</Text>
+      <TextInput
+        keyboardType='numeric'
+        placeholder='e.g. 99' 
+        style={styles.input}
+        onChangeText={(value) => setAge(value)} />
+
+      <Text style={styles.result}>name: {name}, age: {age}</Text>
     </View>
-    </View>
-    
   );
 }
 
@@ -27,5 +34,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
- 
+  input: {
+    borderWidth: 1,
+    borderColor: '#777',
+    padding: 8,
+    margin: 10,
+    width: 200,
+  }
 });
+
+//key board type is a prop
